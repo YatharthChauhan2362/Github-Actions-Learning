@@ -564,4 +564,170 @@ Some common protection rules include:
 
 - Enabling status checks and requiring that all checks pass before a pull request can be merged
 
+## Deployment Logs
 
+In GitHub Actions, deployment logs are a way to view the details of a deployment that was performed as part of a workflow. You can access the deployment logs for a workflow by going to the "Actions" tab of the repository, then clicking on the workflow that you want to view.
+
+Once you are **viewing the details** of a workflow, you can click on the "Deployments" tab to view the deployment logs. This will show you a list of all deployments that were performed as part of the workflow, along with information about the deployment environment and the status of the deployment.
+
+If you click on a **specific deployment**, you can view more detailed information about the deployment, including the log output from the deployment steps. This can be helpful for troubleshooting any issues that may have occurred during the deployment process.
+
+You can also use the **GitHub API** to retrieve deployment logs programmatically. This can be useful if you want to automate the process of accessing and analyzing deployment logs as part of your continuous integration and delivery process.
+
+# Runners
+
+In GitHub Actions, a runner is a specific instance that runs a workflow. When you set up a workflow, you specify the environment in which the workflow will run, such as a specific operating system and version of a programming language. When the workflow is triggered, GitHub creates a runner for the specified environment, and the runner executes the steps in the workflow.
+## Github hosted runners vs self hosted runners
+
+***Hosted runners:** 
+
+- These runners are provided and maintained by GitHub. You don't need to worry about setting up or maintaining the infrastructure for these runners. Hosted runners are available for all public repositories and for private repositories owned by organizations that have a paid GitHub plan.
+
+**Self-hosted runners:** 
+
+- These runners are installed and maintained by you. You can use self-hosted runners to run your workflows on your own infrastructure, on premesis, or in a cloud provider that GitHub Actions doesn't support. Self-hosted runners can be used with any repository, public or private.
+
+## Configured self hosted runner
+
+To configure a self-hosted runner in GitHub Actions, you need to do the following:
+
+1. Install the runner software on the machine where you want to run the workflow. The runner software is available for Windows, Linux, and macOS.
+
+2. On the machine where you installed the runner software, run the **config.cmd** or **config.sh** script to register the runner with GitHub. This script is located in the **bin** directory of the runner software installation directory.
+
+3. When you run the script, you will be prompted to enter the URL of the repository that you want to use with the runner, as well as an authentication token. You can get the repository URL and authentication token from the repository's settings page in GitHub.
+
+4. After you have entered the repository URL and authentication token, the script will configure the runner and start it. The runner will automatically connect to GitHub and start running workflows as soon as they are triggered.
+
+5. If you want to use the runner with multiple repositories, you can register the runner multiple times, each time with a different repository URL and authentication token.
+
+Note that you can also use the GitHub Actions API to register and manage self-hosted runners programmatically. This can be useful if you want to automate the process of setting up and configuring runners.
+
+## Runner groups
+
+In GitHub Actions, a runner group is a collection of runners that are configured to run the same type of workload. You can use runner groups to manage the resources that are available for running your workflows.
+
+For example, suppose you have a self-hosted runner that is configured to run Linux workloads, and another self-hosted runner that is configured to run Windows workloads. You can create a runner group for each runner, and then specify the runner group that you want to use for each workflow in your repository. This way, you can ensure that the workflow is run on the appropriate runner, depending on the environment that is required.
+
+You can create runner groups and manage the runners within them using the GitHub Actions API or the GitHub Actions web UI. You can also use the actions/setup-runner action in a workflow to automatically set up and configure a runner in a runner group.
+
+Using runner groups can help you better manage the resources that are available for running your workflows, and can make it easier to ensure that your workflows are run in the appropriate environment.
+
+## Runner node configuration
+
+In GitHub Actions, a runner is a specific instance that runs a workflow. When you set up a workflow, you specify the environment in which the workflow will run, such as a specific operating system and version of a programming language. This environment is called the "runner node".
+
+To configure the runner node for a workflow, you need to specify the runner node in the workflow file. The runner node is defined using the runs-on key. Here is an example of a workflow file that specifies a runner node:
+
+    name: CI
+
+    on: [push]
+
+    jobs:
+        build:
+            runs-on: ubuntu-latest
+            steps:
+                - uses: actions/checkout@v2
+                - name: Run a one-line script
+                run: echo Hello, world!
+
+In this example, the runner node is an Ubuntu machine with the latest version of Ubuntu installed. You can specify any of the supported operating systems as the runner node for your workflow.
+
+You can also specify a specific version of an operating system as the runner node. For example, you can use ubuntu-20.04 to specify that the runner node should be an Ubuntu machine with Ubuntu 20.04 installed.
+
+## Security risk of public runner
+
+There is a security risk associated with using a public runner in that you are sharing the environment with other users and have no control over who is using the runner at the same time as you. This means that there is a possibility that someone else could potentially access your code or data if they are able to compromise the runner.
+
+To mitigate this risk, it is important to ensure that you are following best practices for securing your code and data, such as using secure credentials and environment variables, and not committing sensitive information to your repository. You should also consider using a self-hosted runner or a private runner, which provides more control over the environment and can reduce the risk of external access to your code and data.
+
+## Dynamically scale runners
+
+There are two main ways to dynamically scale runners in GitHub Actions:
+
+1. **Self-hosted runners:** 
+
+- Self hosted runners can set up and manage your own virtual machines or physical servers to run your jobs. This allows you to customize the hardware and software environment to meet the needs of your workload, and you can scale the number of runners up or down as needed.
+
+**Private runners:** 
+
+- Private runners are managed by GitHub and run on dedicated virtual machines. They offer the convenience of a public runner, but with the added security and isolation of a private environment. You can dynamically scale private runners by changing the number of concurrent jobs that the runner can handle.
+
+To dynamically scale runners in GitHub Actions, you will need to set up the runner infrastructure and configure your workflow to use the runners. You can then use the GitHub API or the Actions workflow syntax to scale the runners up or down as needed.
+
+# Github secrets
+
+In GitHub Actions, secrets are encrypted environment variables that you can use in your workflows to store sensitive information, such as passwords and API keys. Secrets are stored in the GitHub repository where your workflow is defined and are encrypted at rest and in transit.
+
+To use secrets in your GitHub Actions workflow, you will first need to define the secrets in the repository settings. To do this, go to the "Settings" tab of your repository, then click on "Secrets" in the left menu. From here, you can add a new secret by giving it a name and entering its value.
+
+Once you have defined your secrets, you can use them in your workflow by referencing the secret name in your workflow file. For example:
+
+    jobs:
+        build:
+            steps:
+            - uses: actions/checkout@v2
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                node-version: 12.x
+            - name: Install dependencies
+              run: npm install
+            - name: Build the project
+              run: npm run build
+              env:
+                MY_SECRET_ENV_VAR: ${{ secrets.MY_SECRET }}
+
+In this example, the secret named "MY_SECRET" is used to set an environment variable named "MY_SECRET_ENV_VAR" in the build step of the workflow. The value of the secret is encrypted and stored securely, and is only decrypted and made available to the workflow when the job is run.
+
+It is important to keep in mind that secrets are stored in the repository, so anyone with access to the repository can view the names of the secrets, but not their values. You should not commit sensitive information to your repository or use secrets to store information that you do not want other repository collaborators to be able to see.
+
+## Organization secrets and Repository secrets
+
+There are two types of secrets in GitHub Actions: repository secrets and organization secrets.
+
+1. **Repository secrets**
+
+- Repository secrets are specific to a single repository and can only be used in workflows that are defined in that repository. Repository secrets are stored in the repository settings and are only accessible to people with access to the repository.
+
+2. **Organization secrets**
+
+- Organization secrets are shared across all repositories in an organization and can be used in any workflow in any repository in the organization. Organization secrets are stored in the organization settings and are only accessible to people with permission to manage the organization.
+
+Both repository secrets and organization secrets are encrypted at rest and in transit, and can only be accessed by the workflow when the job is run. However, organization secrets have the added advantage of being able to be shared across multiple repositories, which can make it easier to manage secrets for large organizations with many repositories.
+
+## Environment secrets
+
+GitHub Actions allow you to set environment variables for your workflow. These environment variables are encrypted and only made available to the actions in your workflow.
+
+To set an environment variable, you can use the env key in your workflow file. For example:
+
+    jobs:
+        build:
+            runs-on: ubuntu-latest
+            steps:
+            - name: Set an environment variable
+            env:
+                MY_VAR: "hello"
+            - name: Print the environment variable
+            run: |
+                echo $MY_VAR
+
+You can also set environment variables using the **secrets** key. Secrets are encrypted environment variables that are stored in the GitHub Secrets Manager. To set a secret, you can use the**GITHUB_TOKEN**secret to authenticate with the GitHub API and then call the**/repos/:owner/:repo/actions/secrets/:secret_name** endpoint to set the value of a secret.
+
+For example, you can use the following script to set a secret named **MY_SECRET**:
+
+    # Set the value of the secret
+    curl -X PUT -H "Authorization: token ${GITHUB_TOKEN}" -d '{"value":"my secret value"}' <https://api.github.com/repos/OWNER/REPO/actions/secrets/MY_SECRET>
+
+You can then use the secret in your workflow by referencing it as an environment variable. For example:
+
+    jobs:
+        build:
+            runs-on: ubuntu-latest
+            steps:
+            - name: Print the secret
+            run: |
+                echo $MY_SECRET
+
+It is important to note that secrets are only made available to the actions in your workflow and are not passed to subsequent runs of the workflow. They are also not made available to forks of your repository.
