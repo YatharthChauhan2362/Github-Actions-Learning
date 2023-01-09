@@ -6,8 +6,8 @@ GitHub Actions are automated processes that you can set up in your repository to
 
 # Advantages of GIthub Actions
 
-1. Automation: 
-    - GitHub Actions allow you to automate your workflow, so you don't have to manually build, test, package, release, or deploy your code. This can save you time and effort, and help you ensure that your code is always up-to-date and working as expected.
+1. **Automation:** 
+GitHub Actions allow you to automate your workflow, so you don't have to manually build, test, package, release, or deploy your code. This can save you time and effort, and help you ensure that your code is always up-to-date and working as expected.
 
 2. Customization: GitHub Actions are highly customizable, so you can tailor your workflow to fit your specific needs. You can define custom triggers, use different actions and services, and configure your workflow to run on different platforms and environments.
 
