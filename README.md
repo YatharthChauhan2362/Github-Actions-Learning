@@ -245,8 +245,323 @@ This workflow is triggered whenever a push event occurs on the master branch. It
 
 4. The **Deploy** step uses the **peaceiris/actions-gh-pages** action to deploy the built site to GitHub Pages.
 
+## Action Creation
+
+To create a GitHub Action, you need to create a workflow file in your repository. A workflow is a defined series of steps that can be automated on GitHub.
+
+Here's an example of a simple workflow that runs a Python script whenever a push event occurs on the repository:
+
+    name: Run Python script
+
+    on: [push]
+
+    jobs:
+        build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Run script
+         run: python script.py
+
+To create a GitHub Action, you need to create a workflow file in your repository. A workflow is a defined series of steps that can be automated on GitHub.
+
+Here's an example of a simple workflow that runs a Python script whenever a push event occurs on the repository:
+
+Copy code
+name: Run Python script
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run script
+      run: python script.py
+
+This workflow consists of a single job with two steps:
+
+1. The **actions/checkout** action retrieves the code from the repository.
+
+2. The **Run script** step runs a Python script called **script.py**.
+
+To create this workflow, you would create a file called **main.yml** in the **.github/workflows** directory of your repository, and copy the above code into the file.
+
+There are many other options and configurations that you can use to customize your workflow. You can find more information about creating GitHub Actions in the GitHub Actions documentation.
+
+## Github Action Governance
+
+The ability to run code comes the need for governance to ensure that Actions are used safely and responsibly. Here are some ways you can practice good governance when using GitHub Actions:
+
+1. Use the least privilege principle: when creating a workflow, make sure to only grant the permissions that are absolutely necessary for the Action to run. This helps to reduce the risk of unintended consequences.
+
+2. **Use secret scanning:** 
+
+- GitHub provides a secret scanning feature that can help you detect and prevent the accidental exposure of secrets such as API keys in your code.
+
+3. **Use gated workflows:** 
+
+- you can set up a gated workflow that requires a code review and/or approval before it can be run. This can help to ensure that the code being run is reviewed and approved by multiple people before it is executed.
+
+4. **Use branch protection rules:** 
+
+- you can set up branch protection rules to require that all code changes are reviewed before they are merged. This can help to prevent malicious code from being merged into your repository.
+
+5. **Monitor your workflows:** 
+
+- it is important to regularly monitor your workflows to ensure that they are running as expected and to detect any issues or security concerns.
+
+## Troubleshooting Tools and Techniques
+
+1. **Workflow logs:** 
+
+- The most basic tool for troubleshooting issues with your workflows is the workflow logs. You can access the logs for a workflow by clicking on the "Actions" tab in your repository, selecting the workflow you want to view, and then clicking on the specific run you want to view the logs for. The logs will show you the output from each action in the workflow, as well as any errors that occurred.
+
+2. **Debugging actions:** 
+
+- You can use the debug action in your workflow to print debug messages to the workflow logs. This can be helpful for understanding what is happening in your workflow and identifying the source of any issues.
+
+3. **Using environment variables:** 
+
+- You can use environment variables to pass information between actions in your workflow. For example, you might set an environment variable in one action and then use it in a later action to customize its behavior.
+
+4. **Using workflow commands:** 
+
+- GitHub Actions provides a set of workflow commands that you can use to control the execution of your workflows. For example, you can use the if command to conditionally execute actions based on the value of an environment variable.
+
+5. **Using third-party tools:** 
+
+- There are a number of third-party tools that can be helpful for troubleshooting issues with your workflows. For example, you might use a linting tool to check your workflow file for syntax errors, or a testing tool to validate the behavior of your actions.
+
+## Debug Workflows
+
+There are a few different ways you can debug your GitHub Actions workflows:
+
+1. **Print debug messages:** 
+
+- One of the most basic ways to debug your workflows is to use the echo command or the debug action to print debug messages to the workflow logs. This can be helpful for understanding what is happening in your workflow and identifying the source of any issues.
+
+2. **Set breakpoints:** 
+
+- You can use the workflow-debug command in your workflow to set a breakpoint, which will pause the execution of your workflow at that point. This can be useful for inspecting the state of your workflow and debugging issues.
+
+3. **Use environment variables:** 
+
+- You can use environment variables to pass information between actions in your workflow. For example, you might set an environment variable in one action and then use it in a later action to customize its behavior.
+
+4. **Use third-party tools:** 
+
+- There are a number of third-party tools that can be helpful for debugging issues with your workflows. For example, you might use a linting tool to check your workflow file for syntax errors, or a testing tool to validate the behavior of your actions.
+
+# Github Actions CI/CD Workflows
+
+CI/CD (continuous integration/continuous delivery). With GitHub Actions, you can define a workflow that automatically builds, tests, and deploys your code to a specific environment every time you push a commit or create a pull request.
+
+Here's an example of a simple CI/CD workflow that you could use with GitHub Actions:
+
+1. When you push a commit to the repository, the workflow is triggered and runs a series of tasks, such as building the code and running tests.
+
+2. If all of the tasks are successful, the workflow proceeds to the next step, which is to deploy the code to a staging environment.
+
+3. Once the code is deployed to the staging environment, you can manually test it to ensure that everything is working as expected.
+
+4. If the code is working as expected, you can then use the workflow to deploy it to the production environment.
+
+## CI Workflow
+
+GitHub Actions can be used to set up a continuous integration (CI) workflow, which is a series of automated steps that are triggered when code is pushed to a repository. 
+
+A CI workflow can help you automatically build, test, and deploy your code, saving you time and reducing the risk of errors.
+
+To set up a CI workflow using GitHub Actions, you will need to create a configuration file called a "workflow" in your repository. This file is written in YAML and defines the steps that make up your CI workflow.
+
+Here is an example of a more complex CI workflow that builds and deploys a static website to GitHub Pages:
+
+    name: CI
+
+    on: [push]
+
+    jobs:
+        build:
+            runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Install dependencies
+          run: |
+            npm install
+        - name: Build site
+        run: |
+            npm run build
+        - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.6.1
+        with:
+            ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+            BRANCH: gh-pages
+            FOLDER: build
+
+This workflow is triggered whenever code is pushed to the repository (on: [push]). It consists of a single job called "build" that runs on the latest version of Ubuntu. The job has four steps:
+
+1. The first step checks out the code from the repository.
+
+2. The second step installs the dependencies for the project using npm.
+
+3. The third step builds the static website using the command npm run build.
+
+4. The fourth step deploys the built website to GitHub Pages using the github-pages-deploy-action Action.
+
+To use this workflow, you will need to create a personal access token and store it as a secret in your repository. You can then reference the secret in your workflow using ${{ secrets.ACCESS_TOKEN }}. This allows you to authenticate with the GitHub API and deploy your website to GitHub Pages.
 
 
+## Super Linter 
 
+Super Linter is an open-source project that provides a unified interface for running a variety of code linters. It can be used to lint code written in languages such as:
+
+- Bash
+- CoffeeScript
+- Go
+- JSON
+- Python
+- Ruby
+- Terraform
+and many more
+
+To use Super Linter in GitHub Actions, you will need to create a workflow file in your repository. 
+
+This file defines a set of tasks that will be run whenever a certain trigger occurs (e.g. when you push code to your repository). Here is an example workflow file that uses Super Linter to lint the code in your repository:
+
+    name: Lint Code
+
+    on: [push]
+
+    jobs:
+        lint:
+            runs-on: ubuntu-latest
+            steps:
+                - uses: actions/checkout@v2
+                - name: Install Dependencies
+                  run: |
+                    apt-get update
+                    apt-get install -y curl
+                - name: Install Super Linter
+                run: |
+                    curl -L <https://git.io/super-linter> | bash
+                - name: Lint Code
+                run: |
+                    super-linter
+
+This workflow will run whenever you push code to your repository. It will install the necessary dependencies (e.g. curl), install Super Linter, and then run the super-linter command to lint your code.
+
+## CD Workflow
+
+Here's an example of a simple CD workflow using GitHub Actions:
+
+1. Create a new repository in GitHub and push your code to it.
+2. In the root of your repository, create a new directory called **.github/workflows**.
+3. In the **.github/workflows** directory, create a new file called **deploy.yml**. This file will contain the instructions for your CD workflow.
+4. In the **deploy.yml** file, define your workflow by specifying a name and the trigger that will start the workflow:
+
+    name: Deploy
+
+    on:
+        push:
+            branches:
+                - master
+
+This workflow will be triggered every time you push to the master branch of your repository.
+
+5. Add a build step to your workflow by using the **actions/setup-node** action and the **actions/npm** action:
+
+    jobs:
+        build:
+            runs-on: ubuntu-latest
+            steps:
+                - uses: actions/setup-node@v1
+                with:
+                    node-version: 12
+            - run: npm install
+            - run: npm run build
+
+This will install the necessary dependencies and build your code.
+
+6. Add a step to test your code by using the **actions/setup-node** action and the **actions/npm** action:
+
+    - run: npm test
+
+This will run any tests you have defined in your project.
+
+7. Add a step to deploy your code to a hosting platform, such as GitHub Pages or Heroku:
+
+    - name: Deploy to GitHub Pages
+    uses: peaceiris/actions-gh-pages@v3
+    with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build
+
+This will publish the contents of the build directory to GitHub Pages.
+
+    name: Deploy
+
+    on:
+        push:
+            branches:
+                - master
+
+    jobs:
+        build:
+            runs-on: ubuntu-latest
+            steps:
+                - uses: actions/setup-node@v1
+                 with:
+                    node-version: 12
+                - run: npm install
+                - run: npm run build
+                - run: npm test
+                - name: Deploy to GitHub Pages
+                uses: peaceiris/actions-gh-pages@v3
+                with:
+                    github_token: ${{ secrets.GITHUB_TOKEN }}
+                    publish_dir: ./build
+
+# Environments
+
+In GitHub Actions, environments are a way to define a set of variables that can be used in your workflow. 
+
+They are useful for storing information such as API keys, connection strings, or other secrets that your workflow needs to use.
+Environments can be defined in your repository and then referenced in your workflow file.
+
+To create an environment in your repository, go to the "Actions" tab, then click on the "Environments" link in the left sidebar. From here, you can create a new environment by clicking the "New environment" button. You can then give your environment a name and define the variables that should be included in the environment.
+
+Once you have defined an environment, you can use it in your workflow by using the env keyword and the name of the environment.
+
+For example:
+
+    jobs:
+        build:
+            runs-on: ubuntu-latest
+            env:
+                MY_SECRET: ${{ env.MY_ENVIRONMENT_NAME }}
+            steps:
+                - run: echo "The value of MY_SECRET is $MY_SECRET"
+
+Environments are a great way to separate sensitive information from your code and keep it secure. They are also useful for managing different configurations for different environments, such as staging and production environments.
+
+## Protection rules
+
+Protection rules in GitHub are a way to ensure that certain actions cannot be performed on a repository unless certain conditions are met. 
+
+For example, you might want to require that all pull requests be reviewed by at least one other person before they can be merged, or that all pushes to the **master** branch must be made by a designated group of maintainers.
+
+To create protection rules for a repository, go to the "Settings" tab of the repository, then click on the "Branches" link in the left sidebar. From here, you can choose a branch for which you want to set protection rules, and then click the "Add rule" button. You can then specify the conditions that must be met before certain actions can be performed on the branch.
+
+Some common protection rules include:
+
+- Requiring a certain number of approving reviews on pull requests
+
+- Requiring that pull requests be up to date with the target branch before they can be merged
+
+- Requiring that only certain users or teams can push to the branch
+
+- Enabling status checks and requiring that all checks pass before a pull request can be merged
 
 
