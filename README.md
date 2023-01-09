@@ -1,23 +1,84 @@
 **Github Actions CI/CD**
 
-## Github Actions
+# Github Actions
 
 GitHub Actions are automated processes that you can set up in your repository to build, test, package, release, or deploy your code. You can use them to automate your workflow and add custom behaviors to your repository.
 
-# Advantages of GIthub Actions
+## Advantages of GIthub Actions
 
 1. **Automation:** 
  
 - GitHub Actions allow you to automate your workflow, so you don't have to manually build, test, package, release, or deploy your code. This can save you time and effort, and help you ensure that your code is always up-to-date and working as expected.
 
 2. **Customization:**
- GitHub Actions are highly customizable, so you can tailor your workflow to fit your specific needs. You can define custom triggers, use different actions and services, and configure your workflow to run on different platforms and environments.
+
+- GitHub Actions are highly customizable, so you can tailor your workflow to fit your specific needs. You can define custom triggers, use different actions and services, and configure your workflow to run on different platforms and environments.
 
 3. **Integration:**
- GitHub Actions integrate seamlessly with your repository, so you can easily set up and manage your workflow from within GitHub. You can also use them in combination with other tools and services, such as deployment platforms, package repositories, and continuous integration servers.
+
+- GitHub Actions integrate seamlessly with your repository, so you can easily set up and manage your workflow from within GitHub. You can also use them in combination with other tools and services, such as deployment platforms, package repositories, and continuous integration servers.
 
 4. **Collaboration:**
- GitHub Actions are collaborative, so you can share your workflow with your team and contribute to the development of open-source projects. You can also use them to automate tasks that involve multiple repositories or organizations.
+
+- GitHub Actions are collaborative, so you can share your workflow with your team and contribute to the development of open-source projects. You can also use them to automate tasks that involve multiple repositories or organizations.
+
+## Key functionality of GitHub Actions
+
+GitHub Actions is a continuous integration and delivery (CI/CD) platform that allows you to automate your software development workflows. 
+
+Some key functionality of GitHub Actions includes:
+
+1. Running tests and code checks automatically when you push code to your repository.
+
+2. Building and deploying your code to various environments automatically.
+
+3. Automating the release process for your code.
+
+4. Running custom scripts or actions in response to specific events such as creating or merging a pull request.
+
+Overall, GitHub Actions allows you to automate many of the tasks involved in the software development process, helping you save time and reduce the chance of errors.
+
+## Events
+
+1. **Push events:** 
+
+- Triggered when you push code to a repository.
+
+2. **Pull request events:** Triggered when you create or update a pull request.
+
+3. **Issue events:** 
+
+- Triggered when you open, close, or update an issue.
+
+4. **Release events:** 
+
+- Triggered when you create or publish a release.
+
+5. **Comment events:** 
+
+- Triggered when you comment on a commit, issue, or pull request.
+
+6. **Schedule events:** 
+
+- Triggered on a schedule that you specify (e.g., daily, weekly).
+
+Example:
+
+    on:
+        push:
+            branches:
+                - master
+    pull_request:
+        branches:
+            - master
+
+In this example, the workflow is named "CI" and it is triggered by two types of events: push events and pull request events. The workflow will run only when code is pushed to the master branch or when a pull request is created against the master branch.
+
+
+
+
+
+
 
 
 
@@ -27,13 +88,50 @@ GitHub Workflows are a way to automate tasks that you use in your software devel
 
 - Workflows can be triggered by a variety of events, such as pushes to a repository, the creation of a pull request, or the opening of an issue.
 
-- GitHub Workflows are automated processes that you can set up in your repository to build, test, package, release, or deploy any code project on GitHub. You can create Workflows by defining them in a .github/workflows directory in your repository.
+- A workflow in GitHub Actions is defined in a YAML file that is stored in the .github/workflows directory in your repository. The file must have a .yml or .yaml extension.
 
-1. **Build and test:** This Workflow could be triggered whenever you push new code to your repository. It could run your test suite to ensure that the code is working as expected, and then build a production-ready version of your code.
 
-2. **Release:** This Workflow could be triggered whenever you create a new release tag in your repository. It could build and package your code, and then upload the package to a package repository or a deployment service.
+1. **Build and test:** 
 
-3. **Deploy:** This Workflow could be triggered whenever you push new code to a specific branch (e.g. production). It could build and package your code, and then deploy it to your production environment.
+- This Workflow could be triggered whenever you push new code to your repository. It could run your test suite to ensure that the code is working as expected, and then build a production-ready version of your code.
+
+2. **Release:** 
+
+- This Workflow could be triggered whenever you create a new release tag in your repository. It could build and package your code, and then upload the package to a package repository or a deployment service.
+
+3. **Deploy:** 
+
+- This Workflow could be triggered whenever you push new code to a specific branch (e.g. production). It could build and package your code, and then deploy it to your production environment.
+
+Example:
+
+Here is a simple example of a workflow file that runs a test job whenever code is pushed to the repository:
+
+    name: CI
+
+        on: push
+
+        jobs:
+            test:
+            runs-on: ubuntu-latest
+            steps:
+                - uses: actions/checkout@v2
+                - run: npm install
+                - run: npm test
+
+This workflow is named "CI" and it is triggered by push events. It consists of a single job called "test" that runs on an Ubuntu environment. 
+
+The job has three steps: 
+
+1. checking out the code
+
+2. Installing dependencies
+
+3. Running tests.
+
+Whenever code is pushed to the repository, the "CI" workflow will run and execute the steps in the "test" job. This can help ensure that the code is always tested and working properly.
+
+
 
 Here is an example of a GitHub Action that deploys a static website to GitHub Pages:
 
