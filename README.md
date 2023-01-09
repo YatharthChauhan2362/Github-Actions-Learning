@@ -44,7 +44,9 @@ Overall, GitHub Actions allows you to automate many of the tasks involved in the
 
 - Triggered when you push code to a repository.
 
-2. **Pull request events:** Triggered when you create or update a pull request.
+2. **Pull request events:** 
+
+- Triggered when you create or update a pull request.
 
 3. **Issue events:** 
 
@@ -82,7 +84,7 @@ In this example, the workflow is named "CI" and it is triggered by two types of 
 
 
 
-## Github Workflows
+# Github Workflows
 
 GitHub Workflows are a way to automate tasks that you use in your software development workflows. Workflows are made up of individual Jobs, which are defined by a series of steps. Each step in a job can run a script, an action, or an external command. 
 
@@ -132,6 +134,7 @@ The job has three steps:
 Whenever code is pushed to the repository, the "CI" workflow will run and execute the steps in the "test" job. This can help ensure that the code is always tested and working properly.
 
 
+## Actions
 
 Here is an example of a GitHub Action that deploys a static website to GitHub Pages:
 
@@ -158,6 +161,89 @@ This action is triggered whenever you push new code to the *master* branch of yo
 It runs on the latest version of Ubuntu, checks out the code, and then uses the *peaceiris/actions-gh-pages* action to build and deploy the code to GitHub Pages.
 
 The *publish_dir* parameter specifies the directory that contains the static files to be deployed, and the *github_token* parameter allows the action to authenticate with GitHub and push the changes to the *gh-pages* branch.
+
+## Monolithic actions
+
+In a monolithic action, all the steps for an action are included in a single file. 
+
+This can make it easier to manage and maintain the action, as all the code is in one place. However, monolithic actions can also be more difficult to test and debug, as it can be harder to isolate issues to a specific step.
+
+Here is an example of a monolithic action that builds and pushes a Docker image to a registry:
+
+    name: Build and push Docker image
+
+        on: [push]
+
+        jobs:
+            build:
+                runs-on: ubuntu-latest
+                steps:
+                    - uses: actions/checkout@v2
+                    - name: Build and push image
+                    run: |
+                        docker build -t my-image .
+                        docker login -u username -p password
+                        docker push my-image
+
+This action is triggered whenever a push event occurs on the repository. It consists of a single job with two steps:
+
+1. The **actions/checkout** action retrieves the code from the repository.
+
+2. The **Build and push image** step builds a Docker image from the code and pushes it to a registry.
+
+This action is monolithic because all the steps are included in a single file.
+
+
+
+
+
+
+# Github Marketplace
+
+GitHub Marketplace is a platform that allows developers to find and purchase tools and services that integrate with GitHub. Some examples of tools and services that are available on GitHub Marketplace include project management tools, code review tools, continuous integration and deployment services, and performance monitoring tools. To use GitHub Marketplace, you need to have a GitHub account.
+
+You can browse the Marketplace by visiting the GitHub Marketplace website or by accessing the Marketplace from the GitHub website.
+
+[Github Marketplace](https://github.com/marketplace?type=)
+
+## Starter Workflow
+
+A starter workflow is a pre-configured GitHub Actions workflow that you can use as a starting point for your own workflow. GitHub provides a number of starter workflows that you can use to automate common tasks, such as building and deploying code or running tests.
+
+To use a starter workflow, you can copy the workflow file to your repository and modify it to fit your needs. 
+
+For example, here is a starter workflow for building and deploying a static site:
+
+    name: Deploy
+
+        on:
+            push:
+                branches: [ master ]
+
+    jobs:
+        build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Install dependencies
+        run: npm install
+        - name: Build
+        run: npm run build
+        - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+         with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./public
+
+This workflow is triggered whenever a push event occurs on the master branch. It consists of a single job with four steps:
+
+1. The **actions/checkout** action retrieves the code from the repository.
+
+2. The **Install dependencies** step installs the required dependencies for the project.
+
+3. The **Build** step builds the static site.
+
+4. The **Deploy** step uses the **peaceiris/actions-gh-pages** action to deploy the built site to GitHub Pages.
 
 
 
