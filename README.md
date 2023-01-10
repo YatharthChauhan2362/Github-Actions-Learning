@@ -19,9 +19,9 @@
   - [Starter Workflows](#Starter-Workflows)
   - [Troubleshooting Tools and Techniques](#Troubleshooting-Tools-and-Techniques)
   - [Debug Workflows](#Debug-Workflows)
-  - [CI/CD Workflows](#CI/CD-Workflows)
-  - [CI Workflows](#CI-Workflows)
-  - [CD Workflows](#CD-Workflows)
+  - [CI/CD Workflows](#CI-CD-Workflows)
+  - [CI Workflows](#CI-Workflow)
+  - [CD Workflows](#CD-Workflow)
   - [Super Linter](#Super-Linter)
   - [Environments](#Environments)
   - [Protection rules](#Protection-rules)
@@ -376,7 +376,7 @@ There are a few different ways you can debug your GitHub Actions workflows:
 
 - There are a number of third-party tools that can be helpful for debugging issues with your workflows. For example, you might use a linting tool to check your workflow file for syntax errors, or a testing tool to validate the behavior of your actions.
 
-# CI/CD Workflows
+# CI-CD Workflows
 
 CI/CD (continuous integration/continuous delivery). With GitHub Actions, you can define a workflow that automatically builds, tests, and deploys your code to a specific environment every time you push a commit or create a pull request.
 
