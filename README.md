@@ -3,14 +3,21 @@
     AUTHOR:         Yatharth Chauhan  (Github: YatharthChauhan2362)
     TOPIC:          Github Actions
 
+# Table of Content
+
+- [Github Actions](Github-Actions)
+
+  - [Advantages of GIthub Actions](Advantages-of-GIthub-Actions)
+  - [Key functionality of GitHub Actions](Key-functionality-of-GitHub-Actions)
+
 # Github Actions
 
 GitHub Actions are automated processes that you can set up in your repository to build, test, package, release, or deploy your code. You can use them to automate your workflow and add custom behaviors to your repository.
 
 ## Advantages of GIthub Actions
 
-1. **Automation:** 
- 
+1. **Automation:**
+
 - GitHub Actions allow you to automate your workflow, so you don't have to manually build, test, package, release, or deploy your code. This can save you time and effort, and help you ensure that your code is always up-to-date and working as expected.
 
 2. **Customization:**
@@ -27,7 +34,7 @@ GitHub Actions are automated processes that you can set up in your repository to
 
 ## Key functionality of GitHub Actions
 
-GitHub Actions is a continuous integration and delivery (CI/CD) platform that allows you to automate your software development workflows. 
+GitHub Actions is a continuous integration and delivery (CI/CD) platform that allows you to automate your software development workflows.
 
 Some key functionality of GitHub Actions includes:
 
@@ -43,27 +50,27 @@ Overall, GitHub Actions allows you to automate many of the tasks involved in the
 
 ## Events
 
-1. **Push events:** 
+1. **Push events:**
 
 - Triggered when you push code to a repository.
 
-2. **Pull request events:** 
+2. **Pull request events:**
 
 - Triggered when you create or update a pull request.
 
-3. **Issue events:** 
+3. **Issue events:**
 
 - Triggered when you open, close, or update an issue.
 
-4. **Release events:** 
+4. **Release events:**
 
 - Triggered when you create or publish a release.
 
-5. **Comment events:** 
+5. **Comment events:**
 
 - Triggered when you comment on a commit, issue, or pull request.
 
-6. **Schedule events:** 
+6. **Schedule events:**
 
 - Triggered on a schedule that you specify (e.g., daily, weekly).
 
@@ -79,32 +86,23 @@ Example:
 
 In this example, the workflow is named "CI" and it is triggered by two types of events: push events and pull request events. The workflow will run only when code is pushed to the master branch or when a pull request is created against the master branch.
 
-
-
-
-
-
-
-
-
 # Github Workflows
 
-GitHub Workflows are a way to automate tasks that you use in your software development workflows. Workflows are made up of individual Jobs, which are defined by a series of steps. Each step in a job can run a script, an action, or an external command. 
+GitHub Workflows are a way to automate tasks that you use in your software development workflows. Workflows are made up of individual Jobs, which are defined by a series of steps. Each step in a job can run a script, an action, or an external command.
 
 - Workflows can be triggered by a variety of events, such as pushes to a repository, the creation of a pull request, or the opening of an issue.
 
 - A workflow in GitHub Actions is defined in a YAML file that is stored in the .github/workflows directory in your repository. The file must have a .yml or .yaml extension.
 
-
-1. **Build and test:** 
+1. **Build and test:**
 
 - This Workflow could be triggered whenever you push new code to your repository. It could run your test suite to ensure that the code is working as expected, and then build a production-ready version of your code.
 
-2. **Release:** 
+2. **Release:**
 
 - This Workflow could be triggered whenever you create a new release tag in your repository. It could build and package your code, and then upload the package to a package repository or a deployment service.
 
-3. **Deploy:** 
+3. **Deploy:**
 
 - This Workflow could be triggered whenever you push new code to a specific branch (e.g. production). It could build and package your code, and then deploy it to your production environment.
 
@@ -124,9 +122,9 @@ Here is a simple example of a workflow file that runs a test job whenever code i
                 - run: npm install
                 - run: npm test
 
-This workflow is named "CI" and it is triggered by push events. It consists of a single job called "test" that runs on an Ubuntu environment. 
+This workflow is named "CI" and it is triggered by push events. It consists of a single job called "test" that runs on an Ubuntu environment.
 
-The job has three steps: 
+The job has three steps:
 
 1. checking out the code
 
@@ -135,7 +133,6 @@ The job has three steps:
 3. Running tests.
 
 Whenever code is pushed to the repository, the "CI" workflow will run and execute the steps in the "test" job. This can help ensure that the code is always tested and working properly.
-
 
 ## Actions
 
@@ -159,15 +156,15 @@ Here is an example of a GitHub Action that deploys a static website to GitHub Pa
                     github_token: ${{     secrets.GITHUB_TOKEN }}
                     publish_dir: ./public
 
-This action is triggered whenever you push new code to the *master* branch of your repository. 
+This action is triggered whenever you push new code to the _master_ branch of your repository.
 
-It runs on the latest version of Ubuntu, checks out the code, and then uses the *peaceiris/actions-gh-pages* action to build and deploy the code to GitHub Pages.
+It runs on the latest version of Ubuntu, checks out the code, and then uses the _peaceiris/actions-gh-pages_ action to build and deploy the code to GitHub Pages.
 
-The *publish_dir* parameter specifies the directory that contains the static files to be deployed, and the *github_token* parameter allows the action to authenticate with GitHub and push the changes to the *gh-pages* branch.
+The _publish_dir_ parameter specifies the directory that contains the static files to be deployed, and the _github_token_ parameter allows the action to authenticate with GitHub and push the changes to the _gh-pages_ branch.
 
 ## Monolithic actions
 
-In a monolithic action, all the steps for an action are included in a single file. 
+In a monolithic action, all the steps for an action are included in a single file.
 
 This can make it easier to manage and maintain the action, as all the code is in one place. However, monolithic actions can also be more difficult to test and debug, as it can be harder to isolate issues to a specific step.
 
@@ -196,11 +193,6 @@ This action is triggered whenever a push event occurs on the repository. It cons
 
 This action is monolithic because all the steps are included in a single file.
 
-
-
-
-
-
 # Github Marketplace
 
 GitHub Marketplace is a platform that allows developers to find and purchase tools and services that integrate with GitHub. Some examples of tools and services that are available on GitHub Marketplace include project management tools, code review tools, continuous integration and deployment services, and performance monitoring tools. To use GitHub Marketplace, you need to have a GitHub account.
@@ -213,7 +205,7 @@ You can browse the Marketplace by visiting the GitHub Marketplace website or by 
 
 A starter workflow is a pre-configured GitHub Actions workflow that you can use as a starting point for your own workflow. GitHub provides a number of starter workflows that you can use to automate common tasks, such as building and deploying code or running tests.
 
-To use a starter workflow, you can copy the workflow file to your repository and modify it to fit your needs. 
+To use a starter workflow, you can copy the workflow file to your repository and modify it to fit your needs.
 
 For example, here is a starter workflow for building and deploying a static site:
 
@@ -276,12 +268,10 @@ name: Run Python script
 on: [push]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Run script
-      run: python script.py
+build:
+runs-on: ubuntu-latest
+steps: - uses: actions/checkout@v2 - name: Run script
+run: python script.py
 
 This workflow consists of a single job with two steps:
 
@@ -299,41 +289,41 @@ The ability to run code comes the need for governance to ensure that Actions are
 
 1. Use the least privilege principle: when creating a workflow, make sure to only grant the permissions that are absolutely necessary for the Action to run. This helps to reduce the risk of unintended consequences.
 
-2. **Use secret scanning:** 
+2. **Use secret scanning:**
 
 - GitHub provides a secret scanning feature that can help you detect and prevent the accidental exposure of secrets such as API keys in your code.
 
-3. **Use gated workflows:** 
+3. **Use gated workflows:**
 
 - you can set up a gated workflow that requires a code review and/or approval before it can be run. This can help to ensure that the code being run is reviewed and approved by multiple people before it is executed.
 
-4. **Use branch protection rules:** 
+4. **Use branch protection rules:**
 
 - you can set up branch protection rules to require that all code changes are reviewed before they are merged. This can help to prevent malicious code from being merged into your repository.
 
-5. **Monitor your workflows:** 
+5. **Monitor your workflows:**
 
 - it is important to regularly monitor your workflows to ensure that they are running as expected and to detect any issues or security concerns.
 
 ## Troubleshooting Tools and Techniques
 
-1. **Workflow logs:** 
+1. **Workflow logs:**
 
 - The most basic tool for troubleshooting issues with your workflows is the workflow logs. You can access the logs for a workflow by clicking on the "Actions" tab in your repository, selecting the workflow you want to view, and then clicking on the specific run you want to view the logs for. The logs will show you the output from each action in the workflow, as well as any errors that occurred.
 
-2. **Debugging actions:** 
+2. **Debugging actions:**
 
 - You can use the debug action in your workflow to print debug messages to the workflow logs. This can be helpful for understanding what is happening in your workflow and identifying the source of any issues.
 
-3. **Using environment variables:** 
+3. **Using environment variables:**
 
 - You can use environment variables to pass information between actions in your workflow. For example, you might set an environment variable in one action and then use it in a later action to customize its behavior.
 
-4. **Using workflow commands:** 
+4. **Using workflow commands:**
 
 - GitHub Actions provides a set of workflow commands that you can use to control the execution of your workflows. For example, you can use the if command to conditionally execute actions based on the value of an environment variable.
 
-5. **Using third-party tools:** 
+5. **Using third-party tools:**
 
 - There are a number of third-party tools that can be helpful for troubleshooting issues with your workflows. For example, you might use a linting tool to check your workflow file for syntax errors, or a testing tool to validate the behavior of your actions.
 
@@ -341,19 +331,19 @@ The ability to run code comes the need for governance to ensure that Actions are
 
 There are a few different ways you can debug your GitHub Actions workflows:
 
-1. **Print debug messages:** 
+1. **Print debug messages:**
 
 - One of the most basic ways to debug your workflows is to use the echo command or the debug action to print debug messages to the workflow logs. This can be helpful for understanding what is happening in your workflow and identifying the source of any issues.
 
-2. **Set breakpoints:** 
+2. **Set breakpoints:**
 
 - You can use the workflow-debug command in your workflow to set a breakpoint, which will pause the execution of your workflow at that point. This can be useful for inspecting the state of your workflow and debugging issues.
 
-3. **Use environment variables:** 
+3. **Use environment variables:**
 
 - You can use environment variables to pass information between actions in your workflow. For example, you might set an environment variable in one action and then use it in a later action to customize its behavior.
 
-4. **Use third-party tools:** 
+4. **Use third-party tools:**
 
 - There are a number of third-party tools that can be helpful for debugging issues with your workflows. For example, you might use a linting tool to check your workflow file for syntax errors, or a testing tool to validate the behavior of your actions.
 
@@ -373,7 +363,7 @@ Here's an example of a simple CI/CD workflow that you could use with GitHub Acti
 
 ## CI Workflow
 
-GitHub Actions can be used to set up a continuous integration (CI) workflow, which is a series of automated steps that are triggered when code is pushed to a repository. 
+GitHub Actions can be used to set up a continuous integration (CI) workflow, which is a series of automated steps that are triggered when code is pushed to a repository.
 
 A CI workflow can help you automatically build, test, and deploy your code, saving you time and reducing the risk of errors.
 
@@ -415,8 +405,7 @@ This workflow is triggered whenever code is pushed to the repository (on: [push]
 
 To use this workflow, you will need to create a personal access token and store it as a secret in your repository. You can then reference the secret in your workflow using ${{ secrets.ACCESS_TOKEN }}. This allows you to authenticate with the GitHub API and deploy your website to GitHub Pages.
 
-
-## Super Linter 
+## Super Linter
 
 Super Linter is an open-source project that provides a unified interface for running a variety of code linters. It can be used to lint code written in languages such as:
 
@@ -427,9 +416,9 @@ Super Linter is an open-source project that provides a unified interface for run
 - Python
 - Ruby
 - Terraform
-and many more
+  and many more
 
-To use Super Linter in GitHub Actions, you will need to create a workflow file in your repository. 
+To use Super Linter in GitHub Actions, you will need to create a workflow file in your repository.
 
 This file defines a set of tasks that will be run whenever a certain trigger occurs (e.g. when you push code to your repository). Here is an example workflow file that uses Super Linter to lint the code in your repository:
 
@@ -464,42 +453,38 @@ Here's an example of a simple CD workflow using GitHub Actions:
 3. In the **.github/workflows** directory, create a new file called **deploy.yml**. This file will contain the instructions for your CD workflow.
 4. In the **deploy.yml** file, define your workflow by specifying a name and the trigger that will start the workflow:
 
-    name: Deploy
+   name: Deploy
 
-    on:
-        push:
-            branches:
-                - master
+   on:
+   push:
+   branches: - master
 
 This workflow will be triggered every time you push to the master branch of your repository.
 
 5. Add a build step to your workflow by using the **actions/setup-node** action and the **actions/npm** action:
 
-    jobs:
-        build:
-            runs-on: ubuntu-latest
-            steps:
-                - uses: actions/setup-node@v1
-                with:
-                    node-version: 12
-            - run: npm install
-            - run: npm run build
+   jobs:
+   build:
+   runs-on: ubuntu-latest
+   steps: - uses: actions/setup-node@v1
+   with:
+   node-version: 12 - run: npm install - run: npm run build
 
 This will install the necessary dependencies and build your code.
 
 6. Add a step to test your code by using the **actions/setup-node** action and the **actions/npm** action:
 
-    - run: npm test
+   - run: npm test
 
 This will run any tests you have defined in your project.
 
 7. Add a step to deploy your code to a hosting platform, such as GitHub Pages or Heroku:
 
-    - name: Deploy to GitHub Pages
-    uses: peaceiris/actions-gh-pages@v3
-    with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build
+   - name: Deploy to GitHub Pages
+     uses: peaceiris/actions-gh-pages@v3
+     with:
+     github_token: ${{ secrets.GITHUB_TOKEN }}
+     publish_dir: ./build
 
 This will publish the contents of the build directory to GitHub Pages.
 
@@ -528,7 +513,7 @@ This will publish the contents of the build directory to GitHub Pages.
 
 # Environments
 
-In GitHub Actions, environments are a way to define a set of variables that can be used in your workflow. 
+In GitHub Actions, environments are a way to define a set of variables that can be used in your workflow.
 
 They are useful for storing information such as API keys, connection strings, or other secrets that your workflow needs to use.
 Environments can be defined in your repository and then referenced in your workflow file.
@@ -551,7 +536,7 @@ Environments are a great way to separate sensitive information from your code an
 
 ## Protection rules
 
-Protection rules in GitHub are a way to ensure that certain actions cannot be performed on a repository unless certain conditions are met. 
+Protection rules in GitHub are a way to ensure that certain actions cannot be performed on a repository unless certain conditions are met.
 
 For example, you might want to require that all pull requests be reviewed by at least one other person before they can be merged, or that all pushes to the **master** branch must be made by a designated group of maintainers.
 
@@ -580,13 +565,14 @@ You can also use the **GitHub API** to retrieve deployment logs programmatically
 # Runners
 
 In GitHub Actions, a runner is a specific instance that runs a workflow. When you set up a workflow, you specify the environment in which the workflow will run, such as a specific operating system and version of a programming language. When the workflow is triggered, GitHub creates a runner for the specified environment, and the runner executes the steps in the workflow.
+
 ## Github hosted runners vs self hosted runners
 
-***Hosted runners:** 
+**\*Hosted runners:**
 
 - These runners are provided and maintained by GitHub. You don't need to worry about setting up or maintaining the infrastructure for these runners. Hosted runners are available for all public repositories and for private repositories owned by organizations that have a paid GitHub plan.
 
-**Self-hosted runners:** 
+**Self-hosted runners:**
 
 - These runners are installed and maintained by you. You can use self-hosted runners to run your workflows on your own infrastructure, on premesis, or in a cloud provider that GitHub Actions doesn't support. Self-hosted runners can be used with any repository, public or private.
 
@@ -648,11 +634,11 @@ To mitigate this risk, it is important to ensure that you are following best pra
 
 There are two main ways to dynamically scale runners in GitHub Actions:
 
-1. **Self-hosted runners:** 
+1. **Self-hosted runners:**
 
 - Self hosted runners can set up and manage your own virtual machines or physical servers to run your jobs. This allows you to customize the hardware and software environment to meet the needs of your workload, and you can scale the number of runners up or down as needed.
 
-**Private runners:** 
+**Private runners:**
 
 - Private runners are managed by GitHub and run on dedicated virtual machines. They offer the convenience of a public runner, but with the added security and isolation of a private environment. You can dynamically scale private runners by changing the number of concurrent jobs that the runner can handle.
 
