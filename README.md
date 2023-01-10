@@ -9,6 +9,35 @@
 
   - [Advantages of GIthub Actions](#Advantages-of-GIthub-Actions)
   - [Key functionality of GitHub Actions](#Key-functionality-of-GitHub-Actions)
+  - [Events](#Events)
+  - [Action Creation](#Action-Creation)
+  - [Monolithic actions](#Monolithic-actions)
+  - [Github Action Governance](#Github-Action-Governance)
+  - [Static website to GitHub Pages](#Static-website-to-GitHub-Pages)
+
+- [Github Workflows](#Github-Workflows)
+  - [Starter Workflows](#Starter-Workflows)
+  - [Troubleshooting Tools and Techniques](#Troubleshooting-Tools-and-Techniques)
+  - [Debug Workflows](#Debug-Workflows)
+  - [CI/CD Workflows](#CI/CD-Workflows)
+  - [CI Workflows](#CI-Workflows)
+  - [CD Workflows](#CD-Workflows)
+  - [Super Linter](#Super-Linter)
+  - [Environments](#Environments)
+  - [Protection rules](#Protection-rules)
+  - [Deployment Logs](#Deployment-Logs)
+  - [Deployment Logs](#Deployment-Logs)
+- [Runners](#Runners)
+  - [Github hosted runners vs self hosted runners](#Github-hosted-runners-vs-self-hosted-runners)
+  - [Configured self hosted runner](#Configured-self-hosted-runner)
+  - [Runner groups](#Runner-groups)
+  - [Runner node configuration](#Runner-node-configuration)
+  - [Security risk of public runner](#Security-risk-of-public-runner)
+  - [Dynamically scale runners](#Dynamically-scale-runners)
+  - [Dynamically scale runners](#Dynamically-scale-runners)
+- [Github secrets](#Github-secrets)
+  - [Organization secrets and Repository secrets](#Organization-secrets-and-Repository-secrets)
+  - [Environment secrets](#Environment-secrets)
 
 # Github Actions
 
@@ -134,34 +163,6 @@ The job has three steps:
 
 Whenever code is pushed to the repository, the "CI" workflow will run and execute the steps in the "test" job. This can help ensure that the code is always tested and working properly.
 
-## Actions
-
-Here is an example of a GitHub Action that deploys a static website to GitHub Pages:
-
-    name: Deploy to GitHub Pages
-
-    on:
-        push:
-            branches:
-                - master
-
-    jobs:
-        build:
-            runs-on: ubuntu-latest
-            steps:
-                - uses: actions/checkout@v2
-                - name: Build and Deploy
-                uses: peaceiris/actions-gh- pages@v3
-                with:
-                    github_token: ${{     secrets.GITHUB_TOKEN }}
-                    publish_dir: ./public
-
-This action is triggered whenever you push new code to the _master_ branch of your repository.
-
-It runs on the latest version of Ubuntu, checks out the code, and then uses the _peaceiris/actions-gh-pages_ action to build and deploy the code to GitHub Pages.
-
-The _publish_dir_ parameter specifies the directory that contains the static files to be deployed, and the _github_token_ parameter allows the action to authenticate with GitHub and push the changes to the _gh-pages_ branch.
-
 ## Monolithic actions
 
 In a monolithic action, all the steps for an action are included in a single file.
@@ -192,6 +193,34 @@ This action is triggered whenever a push event occurs on the repository. It cons
 2. The **Build and push image** step builds a Docker image from the code and pushes it to a registry.
 
 This action is monolithic because all the steps are included in a single file.
+
+## Static website to GitHub Pages
+
+Here is an example of a GitHub Action that deploys a static website to GitHub Pages:
+
+    name: Deploy to GitHub Pages
+
+    on:
+        push:
+            branches:
+                - master
+
+    jobs:
+        build:
+            runs-on: ubuntu-latest
+            steps:
+                - uses: actions/checkout@v2
+                - name: Build and Deploy
+                uses: peaceiris/actions-gh- pages@v3
+                with:
+                    github_token: ${{     secrets.GITHUB_TOKEN }}
+                    publish_dir: ./public
+
+This action is triggered whenever you push new code to the _master_ branch of your repository.
+
+It runs on the latest version of Ubuntu, checks out the code, and then uses the _peaceiris/actions-gh-pages_ action to build and deploy the code to GitHub Pages.
+
+The _publish_dir_ parameter specifies the directory that contains the static files to be deployed, and the _github_token_ parameter allows the action to authenticate with GitHub and push the changes to the _gh-pages_ branch.
 
 # Github Marketplace
 
@@ -347,7 +376,7 @@ There are a few different ways you can debug your GitHub Actions workflows:
 
 - There are a number of third-party tools that can be helpful for debugging issues with your workflows. For example, you might use a linting tool to check your workflow file for syntax errors, or a testing tool to validate the behavior of your actions.
 
-# Github Actions CI/CD Workflows
+# CI/CD Workflows
 
 CI/CD (continuous integration/continuous delivery). With GitHub Actions, you can define a workflow that automatically builds, tests, and deploys your code to a specific environment every time you push a commit or create a pull request.
 
@@ -404,45 +433,6 @@ This workflow is triggered whenever code is pushed to the repository (on: [push]
 4. The fourth step deploys the built website to GitHub Pages using the github-pages-deploy-action Action.
 
 To use this workflow, you will need to create a personal access token and store it as a secret in your repository. You can then reference the secret in your workflow using ${{ secrets.ACCESS_TOKEN }}. This allows you to authenticate with the GitHub API and deploy your website to GitHub Pages.
-
-## Super Linter
-
-Super Linter is an open-source project that provides a unified interface for running a variety of code linters. It can be used to lint code written in languages such as:
-
-- Bash
-- CoffeeScript
-- Go
-- JSON
-- Python
-- Ruby
-- Terraform
-  and many more
-
-To use Super Linter in GitHub Actions, you will need to create a workflow file in your repository.
-
-This file defines a set of tasks that will be run whenever a certain trigger occurs (e.g. when you push code to your repository). Here is an example workflow file that uses Super Linter to lint the code in your repository:
-
-    name: Lint Code
-
-    on: [push]
-
-    jobs:
-        lint:
-            runs-on: ubuntu-latest
-            steps:
-                - uses: actions/checkout@v2
-                - name: Install Dependencies
-                  run: |
-                    apt-get update
-                    apt-get install -y curl
-                - name: Install Super Linter
-                run: |
-                    curl -L <https://git.io/super-linter> | bash
-                - name: Lint Code
-                run: |
-                    super-linter
-
-This workflow will run whenever you push code to your repository. It will install the necessary dependencies (e.g. curl), install Super Linter, and then run the super-linter command to lint your code.
 
 ## CD Workflow
 
@@ -510,6 +500,45 @@ This will publish the contents of the build directory to GitHub Pages.
                 with:
                     github_token: ${{ secrets.GITHUB_TOKEN }}
                     publish_dir: ./build
+
+## Super Linter
+
+Super Linter is an open-source project that provides a unified interface for running a variety of code linters. It can be used to lint code written in languages such as:
+
+- Bash
+- CoffeeScript
+- Go
+- JSON
+- Python
+- Ruby
+- Terraform
+  and many more
+
+To use Super Linter in GitHub Actions, you will need to create a workflow file in your repository.
+
+This file defines a set of tasks that will be run whenever a certain trigger occurs (e.g. when you push code to your repository). Here is an example workflow file that uses Super Linter to lint the code in your repository:
+
+    name: Lint Code
+
+    on: [push]
+
+    jobs:
+        lint:
+            runs-on: ubuntu-latest
+            steps:
+                - uses: actions/checkout@v2
+                - name: Install Dependencies
+                  run: |
+                    apt-get update
+                    apt-get install -y curl
+                - name: Install Super Linter
+                run: |
+                    curl -L <https://git.io/super-linter> | bash
+                - name: Lint Code
+                run: |
+                    super-linter
+
+This workflow will run whenever you push code to your repository. It will install the necessary dependencies (e.g. curl), install Super Linter, and then run the super-linter command to lint your code.
 
 # Environments
 
