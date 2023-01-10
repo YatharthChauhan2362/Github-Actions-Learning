@@ -38,6 +38,7 @@
 - [Github secrets](#Github-secrets)
   - [Organization secrets and Repository secrets](#Organization-secrets-and-Repository-secrets)
   - [Environment secrets](#Environment-secrets)
+  - [Secrets Limitations](#Secrets-Limitations)
 
 # Github Actions
 
@@ -749,3 +750,33 @@ You can then use the secret in your workflow by referencing it as an environment
                 echo $MY_SECRET
 
 It is important to note that secrets are only made available to the actions in your workflow and are not passed to subsequent runs of the workflow. They are also not made available to forks of your repository.
+
+## Secrets Limitations
+
+There are a few limitations to be aware of when using secrets in GitHub Actions:
+
+1. **Maximum number of secrets per repository:**
+
+- You can store up to 100 secrets per repository. This includes secrets that are used in GitHub Actions and also those that are used in GitHub Packages.
+
+2. **Size limit of secrets:**
+
+- Secrets are limited to 64 KB in size. If you need to store larger amounts of data, you should consider using an external secret management service or storing the data in a private Git repository.
+
+3. **Visibility of secrets:**
+
+- Secrets are only visible to the repository's maintainers. You cannot share secrets with other users or organizations.
+
+4. **Secrets in forks:**
+
+- Secrets are not available in forks of a repository. If you want to use secrets in a fork, you need to create the secrets in the forked repository.
+
+5. **Editing or Removing Secrets:**
+
+- Once added, a secret cannot be edited directly, you would need to remove the secret and re-create it with the new value.
+
+6. **Limitations in usage:**
+
+- Secrets can only be used in GitHub Actions workflow files, they cannot be accessed via the REST API, Github UI, or other tools. Additionally, secrets are not available when using the GitHub Actions REST API or the GitHub REST API.
+
+It's important to keep in mind that you should only store sensitive information, such as API keys and passwords, in secrets. You should not store information that is sensitive and must be kept confidential, like a private key. This kind of data should be stored in a secure offline location or a password manager or other specialized software.
