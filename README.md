@@ -5,10 +5,10 @@
 
 # Table of Content
 
-- [Github Actions](Github-Actions)
+- [Github Actions](#Github-Actions)
 
-  - [Advantages of GIthub Actions](Advantages-of-GIthub-Actions)
-  - [Key functionality of GitHub Actions](Key-functionality-of-GitHub-Actions)
+  - [Advantages of GIthub Actions](#Advantages-of-GIthub-Actions)
+  - [Key functionality of GitHub Actions](#Key-functionality-of-GitHub-Actions)
 
 # Github Actions
 
